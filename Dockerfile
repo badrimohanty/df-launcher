@@ -4,6 +4,19 @@ FROM python:3.11-bookworm
 # Install SDK.
 RUN pip install --no-cache-dir apache-beam[gcp]==2.58.1
 
+
+
+
+# Update the OS packages
+RUN apt update \
+    && apt upgrade
+RUN pip install --upgrade pip
+
+
+
+
+
+
 # Verify that the image does not have conflicting dependencies.
 RUN pip check
 
