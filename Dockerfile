@@ -1,15 +1,17 @@
+FROM marketplace.gcr.io/google/debian11:latest
 
-FROM python:3.11-bookworm
+# Install Python 3.11
+RUN apt-get update && \
+    apt-get install -y python3.11 python3.11-dev python3-pip
 
-# Install SDK.
-RUN pip install --no-cache-dir apache-beam[gcp]==2.58.1
+# Install Apache Beam SDK
+RUN pip3 install --no-cache-dir apache-beam[gcp]==2.58.1
 
+# Verify dependencies
+RUN pip3 check
 
-# Verify that the image does not have conflicting dependencies.
-RUN pip check
-
-# Copy files from official SDK image, including script/dependencies.
+# Copy files from official SDK image
 COPY --from=apache/beam_python3.11_sdk:2.58.1 /opt/apache/beam /opt/apache/beam
 
-# Set the entrypoint to Apache Beam SDK launcher.
+# Set entrypoint
 ENTRYPOINT ["/opt/apache/beam/boot"]
