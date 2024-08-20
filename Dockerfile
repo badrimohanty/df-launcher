@@ -1,5 +1,5 @@
 
-FROM python:3.11-bullseye
+FROM python:3.11-slim
 
 # Install SDK.
 RUN pip install --no-cache-dir apache-beam[gcp]==2.58.1
