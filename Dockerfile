@@ -11,5 +11,6 @@ RUN pip check
 # Copy files from official SDK image, including script/dependencies.
 COPY --from=apache/beam_python3.11_sdk:2.59.0 /opt/apache/beam /opt/apache/beam
 
+ENV LD_LIBRARY_PATH="${WORKDIR}/lib/oracle_client/"
 # Set the entrypoint to Apache Beam SDK launcher.
 ENTRYPOINT ["/opt/apache/beam/boot"]
